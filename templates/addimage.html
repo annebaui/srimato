@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+	 <div class=body>
+	 {% block body %}
+		<p>Bitte w&auml;hle ein Bild, dass maximal 680 Pixel breit ist!</p><br/>
+		<form action="{{ url_for('addimage') }}" method="post">
+			<ul>
+				<li>
+					Image URL: <input type="text" name="imageuri" size="60"><input type="submit" value="Add Image">
+				</li>
+			</ul>
+		</form>
+	  {% endblock %}
+	  </div>
+	  <div class=footer>
+		Srimato &mdash; A Flask Application
+	  </div>
+	</div>
+{% endblock %}

@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% block content %}
+	<div class=body>
+	{% block body %}
+		<div class="imageheadline">
+			<h1>Infos zu Bild Nr. {{ img.id }}</h1>
+			<div class="alignright">
+				<a href="">JSON</a>
+				<a href="">RDF/XML</a>
+				<a href="">JPEG</a>
+			</div>
+		</div>
+		<div class="toolbox">
+			<h3>Fragment hinzuf&uuml;gen</h3>
+			<ul>
+				<li><a href="#" class="addfrag">Person</a></li>
+				<li><a href="#" class="addfrag">Ort</a></li>
+				<li><a href="#" class="addfrag">Link</a></li>
+				<li><a href="#" class="addfrag">Media</a></li>
+				<li><a href="#" class="addfrag">Anderes</a></li>
+			</ul>
+			<form id="addfrag" action="{{ url_for('addfragment', imageid=img.id) }}" method="post">
+				<ul>
+					<li>
+						X: <input type="text" name="xvalue">
+					</li>
+					<li>
+						Y: <input type="text" name="yvalue">
+					</li>
+					<div class=actions><input type="submit" value="Speichern"></div>
+				</ul>
+			</form>
+		</div>
+		
+		{% for imageuri in img.imageuris %}
+			{% if loop.index<2 %}
+			<div class="imageeditor">
+				<img src="{{ imageuri.uri }}" >
+			</div>
+			{% endif %}
+		{% endfor %}
+		<div class="imginfos">
+			<div class="infoelement urilist">
+				<form action="" method="post">
+					<table>
+						<tr>
+							<td property="headline">Bildtitel:</td>
+							<td><input type="text" name="title" size="80"></td>
+						</tr>
+						<tr>
+							<td>Autor:</td>
+							<td><input type="text" name="author" value="" size="80"></td>
+						</tr>
+						<tr>
+							<td property="copyrightNotice">Lizenz:</td>
+							<td><input type="text" name="licence" value="" size="80"></td>
+						</tr>
+						<tr>
+							<td property="dateCreated">Aufnahmedatum:</td>
+							<td><input type="text" name="creationdate" value="" size="80"></td>
+						</tr>
+						<tr>
+							<td property="description">Bildbeschreibung:</td>
+							<td><textarea type="text" name="description" cols="60" rows="5" value=""></textarea></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td><input type="submit" value="ok"></td>
+						</tr>
+					</table>
+				</form>
+			<div>
+			<div class="infoelement urilist">
+				<h2>URIS - Weitere Links zu diesem Bild</h2>
+				<div class="thumbs">
+				{% for imageuri in img.imageuris %}
+					{% if loop.index>2 %}
+						<ul class="uris">
+							<li>{{ imageuri.uri }}<!--<img src="{{ imageuri.uri }}" style="width:90px; height: 90px;">--></li>
+						</ul>
+					{% endif %}
+					{% endfor %}
+					<br/><p>URI hinzuf&uuml;gen</p>
+					<form action="{{ url_for('adduri', imageid=img.id) }}" method="post">
+						<ul>
+							<li>
+								+ <input type="text" name="imguri"><input type="submit" value="ok">
+							</li>
+						</ul>
+					</form>
+				</div>				
+			</div>
+			<div class="infoelement fraglist">
+				<h2>FRAGMENTS - Fragmente des Bildes</h2>
+				{% for imagefragment in img.imagefrag if imagefragment.visible %}
+					<div class="fragment">
+						<h3>Fragment {{ loop.index }}</h3>
+						<ul>
+							<li>x: {{ imagefragment.x }}</li>
+							<li>y: {{ imagefragment.y }}</li>
+							{% for metadata in imagefragment.fragmeta %}
+							<h4>Metadaten</h4>
+							<ul>
+								<li>version: {{ metadata.version }}</li>
+								<li>namespace: {{ metadata.namespace }}</li>
+								<li>created: {{ metadata.timestamp }}</li>
+								{% for annotation in metadata.anno %}
+								<h4>Annotationen</h4>
+								<ul>
+									<li>{{ annotation.an_key }}: {{ annotation.an_value }}</li>
+								</ul>
+								{% endfor %}
+							</ul>
+							{% endfor %}
+							<p>Metadaten hinzuf&uuml;gen</p>
+							{#<form action="#{{ url_for('addmeta', imageid=img.id) }}#" method="post">#}
+							<form action="" method="post">
+								<ul>
+									<li>
+										+ <input type="text" name="imguri"><input type="submit" value="ok">
+									</li>
+								</ul>
+							</form>
+						</ul>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	{% endblock %}
+	</div>
+	<div class=footer>
+		Srimato &mdash; A Flask Application
+	</div>
+{% endblock %}
+{% block scripts %}
+<script>
+	$(document).ready(function() {
+	
+	   $("a.addfrag").click(function() {
+		 $("form#addfrag").css("display", "block");
+	   });
+	 });
+</script>
+{% endblock %}

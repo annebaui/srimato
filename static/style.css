@@ -1,0 +1,269 @@
+*{margin:0;padding:0;}
+p.small{font-size: 12px;}
+.clear{clear: left;}
+h1{color: #4C5154; font-size: 15px;}
+h2{color: #4C5154; font-size: 14px;}
+
+body {
+    background: black;
+    font-family: 'Arial', sans-serif;
+    font-size: 12px;
+	line-height: 1.6em;
+}
+
+div.apptitle{
+	width: 100%;
+	background-color: #EEF2F5;
+	height: auto;
+}
+
+div.apptitle h1{
+	font-size: 18px;
+}
+
+div.apptitle h1 a{
+	margin: 0 auto;
+	display: block;
+	width: auto;
+	text-align: center;
+	padding: 10px 0;
+	text-decoration:none;
+}
+
+form#addfrag{
+	position: absolute;
+	display: none;
+}
+
+div.flash{
+	margin: 10px 0;
+	padding: 10px;
+}
+
+ul.flashes{
+	list-style-type: none;
+}
+
+div.page {
+    width: 700px;
+    margin: 20px auto;
+}
+
+div.body{
+	background: white;
+}
+
+ul.flashes {
+    list-style: none;
+    margin: 10px 0;
+    padding: 0;
+}
+
+ul.flashes li {
+    background: #B9F3ED;
+    border: 1px solid #81CEC6;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    padding: 10px;
+    font-size: 13px;
+	font-weight: bold;
+}
+
+ul.flashes li.message {
+    background: #70E870;
+	color: white;
+}
+
+ul.flashes li.error {
+    background: red;
+	color: white;
+}
+
+div.page div.navigation a , div.toolbox a{
+    color: #4C5154;
+    font-weight: bold;
+	text-decoration: none;
+}
+
+div.navigation{
+	margin-bottom: 20px;
+	clear: both;
+}
+
+div.navigation ul,div.toolbox ul{
+	list-style-type: none;
+	display: block;
+	clear: both;
+	height: 35px;
+}
+
+div.navigation ul li, div.toolbox ul li{
+	float: left;
+	margin: 0 15px 0 0;
+	padding: 10px;
+	background-color: #EEF2F5;
+	display: block;
+}
+
+div.page div.navigation {
+    background: black;
+    padding: 10px 0;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+div.imageheadline{
+	background-color: #EEF2F5;
+	padding: 10px;
+	margin: -10px 0 0 -10px;
+	width: 680px;
+	height: 15px;
+}
+
+div.imageheadline h1{
+	text-align: left;
+	width: 50%;
+	display: inline-block;
+	float: left;
+}
+
+div.alignright{
+	text-align: right;
+	display: inline-block;
+	width: 50%;
+}
+
+div.toolbox{
+	clear: left;
+	margin: 10px 0 20px 0;
+}
+
+div.imageheadline a{
+	background-color: white;
+	color: #4C5154;
+	padding: 5px;
+	text-decoration: none;
+}
+
+div.imageeditor{
+	clear: both;
+	background-color: #EEF2F5;
+}
+
+div.imageeditor img{
+	margin: 20px auto;
+	text-align: center;
+	display: block;
+}
+
+input[type="submit"], input[type="text"], textarea {
+    background: #EEF2F5;
+    border: 1px solid #4C5154;
+    padding: 1px 3px;
+    font-size: 12px;
+    color:  #4C5154;
+	margin-left: 5px;
+}
+
+div.infoelement{
+	margin-top: 20px;
+}
+
+input[type="submit"]{
+	font-weight: bold;
+}
+
+ul.uris{
+	list-style-type: circle;
+}
+
+div.fragment{
+	margin-top: 10px;
+}
+
+table.images{
+	text-align: center;
+}
+
+/*________________________*/
+
+a {
+    color: #26776F;
+}
+
+a:hover {
+    color: #333;
+}
+
+div.page div.body {
+    padding: 10px;
+}
+
+div.page div.footer {
+    background: #eee;
+    color: #888;
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+div.page div.followstatus {
+    border: 1px solid #ccc;
+    background: #E3EBEA;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    padding: 3px;
+    font-size: 13px;
+}
+
+div.page ul.messages {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+div.page ul.messages li {
+    margin: 10px 0;
+    padding: 5px;
+    background: #F0FAF9;
+    border: 1px solid #DBF3F1;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    min-height: 48px;
+}
+
+div.page ul.messages p {
+    margin: 0;
+}
+
+div.page ul.messages li img {
+    float: left;
+    padding: 0 10px 0 0;
+}
+
+div.page ul.messages li small {
+    font-size: 0.9em;
+    color: #888;
+}
+
+div.page div.twitbox {
+    margin: 10px 0;
+    padding: 5px;
+    background: #F0FAF9;
+    border: 1px solid #94E2DA;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+div.page div.twitbox h3 {
+    margin: 0;
+    font-size: 1em;
+    color: #2C7E76;
+}
+
+div.page div.twitbox p {
+    margin: 0;
+}
+
+div.page div.twitbox input[type="text"] {
+    width: 585px;
+}

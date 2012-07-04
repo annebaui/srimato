@@ -1,0 +1,16 @@
+<!doctype html>
+<title>{% block title %}Welcome{% endblock %} to Srimato</title>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+<div class=page>
+  <h1>Semantic Region-based Image Annotation Tool</h1>
+  <div class=navigation>
+	<p>Klick auf den Startbutton, um die Anwendung zu starten</p>
+  <div class=body>
+  {% block body %}
+		<a class=start href="{{ url_for('addimage')}}">Start</a>.
+  {% endblock %}
+  </div>
+  <div class=footer>
+    Srimato &mdash; A Flask Application
+  </div>
+</div>
