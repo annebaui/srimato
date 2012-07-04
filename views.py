@@ -6,6 +6,8 @@ import StringIO
 from flask import request, render_template, flash, redirect, url_for
 from app import app
 from models import Image, Imageuri, ImageFragment, Metadata, Annotation
+import exiftool
+from imagecontroller import Imagecontroller
 
 @app.route('/')
 def index():
@@ -70,17 +72,17 @@ def addimage():
             flash('Dieses Bild ist bereits im System gespeichert. Bitte waehle eine andere URI.', 'error')
             return redirect(url_for('image_detail', imageid=imageob.id))
         except Imageuri.DoesNotExist:
-            fp = urllib.urlopen(request.form['imageuri'])
-            im = PILImage.open(StringIO.StringIO(fp.read()))
-             
-            if im.size[0] <= maximagesize:
-                imageob = Image.create(width=200, height=200,)
+            imgc = Imagecontroller()
+            if imgc.check_image_size(request.form['imageuri']) == True:
+                imgc.extract_metadata(request.form['imageuri'])
+                """imageob = Image.create(width=200, height=200,)
                 imageob.save()
                 imageuri = Imageuri.create(
                     image=imageob,
                     uri=request.form['imageuri'],
                 )
-                imageuri.save()
+                imageuri.save()"""
+                imageob = imgc.create_new_image(request.form['imageuri'])
                 flash('Dein Bild wurde erfolgreich ans System uebertragen. Starte nun mit deinen Annotationen.')
                 return redirect(url_for('image_detail', imageid=imageob.id))
             else:
