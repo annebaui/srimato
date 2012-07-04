@@ -1,7 +1,8 @@
 # - srimato
 
 
-a semantic region-based image annotation tool that 
+a semantic region-based image annotation tool that
+research can be found here <http://research.anne-bauermeister.de>
 
 main functions:
 
@@ -19,7 +20,7 @@ requirements:
 * `PIL - Python Imaging Library <http://www.pythonware.com/products/pil/>`_
 * python 2.7
 
-* `PyExifTool - A Python wrapper for Phil Harvey’s ExifTool <https://github.com/smarnach/pyexiftool>`_
+* `PyExifTool - A Python wrapper for Phil Harveyï¿½s ExifTool <https://github.com/smarnach/pyexiftool>`_
 	--> needs an installation of Phil Harvey ExifTool <http://www.sno.phy.queensu.ca/~phil/exiftool/>
 	--> under windows: put exiftool.exe into the windows directory (e.g. C:\Windows)
 
