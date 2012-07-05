@@ -30,9 +30,17 @@ div.apptitle h1 a{
 	text-decoration:none;
 }
 
-form#addfrag{
+.inputfield{
 	position: absolute;
 	display: none;
+}
+
+form.inputfield{
+	margin: 55px 0;
+}
+
+div.toolbox form {
+	background-color: #EEF2F5;
 }
 
 div.flash{
@@ -154,6 +162,14 @@ div.imageeditor img{
 	margin: 20px auto;
 	text-align: center;
 	display: block;
+}
+
+div.fragment ul{
+	margin-left: 30px;
+}
+
+div.fragment table{
+	border: 1px solid #4C5154;
 }
 
 input[type="submit"], input[type="text"], textarea {
