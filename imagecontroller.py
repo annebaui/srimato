@@ -54,6 +54,7 @@ class Imagecontroller(object):
         tempmeta = self.add_metadata(tempfrag, ns_ma)
         
 <<<<<<< HEAD
+<<<<<<< HEAD
         self.get_img_locator(uri)
         self.get_img_title(uri)
         self.get_img_desc(uri)
@@ -67,6 +68,8 @@ class Imagecontroller(object):
         
     def get_img_locator(self, uri):       
 =======
+=======
+>>>>>>> origin/#1-extend-semantic-annotation
         self.set_img_locator(uri)
         self.set_img_title(uri)
         self.set_img_desc(uri)
@@ -78,6 +81,9 @@ class Imagecontroller(object):
         self.set_img_relation(uri)
         
     def set_img_locator(self, uri):       
+<<<<<<< HEAD
+>>>>>>> origin/#1-extend-semantic-annotation
+=======
 >>>>>>> origin/#1-extend-semantic-annotation
     
         """ getting image locator info
@@ -89,7 +95,11 @@ class Imagecontroller(object):
         self.add_annotation(tempmeta, key, uri)
     
 <<<<<<< HEAD
+<<<<<<< HEAD
     def get_img_title(self, uri):   
+=======
+    def set_img_title(self, uri):   
+>>>>>>> origin/#1-extend-semantic-annotation
 =======
     def set_img_title(self, uri):   
 >>>>>>> origin/#1-extend-semantic-annotation
@@ -103,9 +113,15 @@ class Imagecontroller(object):
         tags = ["XMP-dc:Title", "MWG:ImageDescription"]
         key = "title"
 <<<<<<< HEAD
+<<<<<<< HEAD
         value = self.get_meta_prop(tags, uri, key)
         
     def get_img_desc(self, uri):    
+=======
+        value = self.set_meta_prop(tags, uri, key)
+        
+    def set_img_desc(self, uri):    
+>>>>>>> origin/#1-extend-semantic-annotation
 =======
         value = self.set_meta_prop(tags, uri, key)
         
@@ -121,9 +137,15 @@ class Imagecontroller(object):
         tags = ["EXIF:XPSubject", "XMP-dc:Subject", "IPTC:Caption-Abstract"]
         key = "description"
 <<<<<<< HEAD
+<<<<<<< HEAD
         self.get_meta_prop(tags, uri, key)
     
     def get_img_date(self, uri):
+=======
+        self.set_meta_prop(tags, uri, key)
+    
+    def set_img_date(self, uri):
+>>>>>>> origin/#1-extend-semantic-annotation
 =======
         self.set_meta_prop(tags, uri, key)
     
@@ -137,9 +159,15 @@ class Imagecontroller(object):
         tags = ["MWG:DateTimeOriginal"]
         key = "date"
 <<<<<<< HEAD
+<<<<<<< HEAD
         self.get_meta_prop(tags, uri, key)
         
     def get_img_creator(self, uri):
+=======
+        self.set_meta_prop(tags, uri, key)
+        
+    def set_img_creator(self, uri):
+>>>>>>> origin/#1-extend-semantic-annotation
 =======
         self.set_meta_prop(tags, uri, key)
         
@@ -153,9 +181,15 @@ class Imagecontroller(object):
         tags = ["MWG:Creator"]
         key = "creator"
 <<<<<<< HEAD
+<<<<<<< HEAD
         self.get_meta_prop(tags, uri, key)
         
     def get_img_copyright(self, uri):
+=======
+        self.set_meta_prop(tags, uri, key)
+        
+    def set_img_copyright(self, uri):
+>>>>>>> origin/#1-extend-semantic-annotation
 =======
         self.set_meta_prop(tags, uri, key)
         
@@ -169,9 +203,15 @@ class Imagecontroller(object):
         tags = ["MWG:Copyright"]
         key = "copyright"
 <<<<<<< HEAD
+<<<<<<< HEAD
         self.get_meta_prop(tags, uri, key)
         
     def get_img_location(self, uri):
+=======
+        self.set_meta_prop(tags, uri, key)
+        
+    def set_img_location(self, uri):
+>>>>>>> origin/#1-extend-semantic-annotation
 =======
         self.set_meta_prop(tags, uri, key)
         
@@ -185,9 +225,15 @@ class Imagecontroller(object):
         tags = ["MWG:Location"]
         key = "location"
 <<<<<<< HEAD
+<<<<<<< HEAD
         self.get_meta_prop(tags, uri, key)
     
     def get_img_policy(self, uri):
+=======
+        self.set_meta_prop(tags, uri, key)
+    
+    def set_img_policy(self, uri):
+>>>>>>> origin/#1-extend-semantic-annotation
 =======
         self.set_meta_prop(tags, uri, key)
     
@@ -203,9 +249,15 @@ class Imagecontroller(object):
         tags = ["XMP-rights:Certificate", "XMP-rights:UsageTerms", "XMP-rights:WebStatement"]
         key = "policy"
 <<<<<<< HEAD
+<<<<<<< HEAD
         self.get_meta_prop(tags, uri, key)
     
     def get_img_relation(self, uri):
+=======
+        self.set_meta_prop(tags, uri, key)
+    
+    def set_img_relation(self, uri):
+>>>>>>> origin/#1-extend-semantic-annotation
 =======
         self.set_meta_prop(tags, uri, key)
     
@@ -221,9 +273,15 @@ class Imagecontroller(object):
         tags = ["XMP-dc:Relation"]
         key = "relation"
 <<<<<<< HEAD
+<<<<<<< HEAD
         self.get_meta_prop(tags, uri, key)
     
     def get_meta_prop(self, tags, uri, key):
+=======
+        self.set_meta_prop(tags, uri, key)
+    
+    def set_meta_prop(self, tags, uri, key):
+>>>>>>> origin/#1-extend-semantic-annotation
 =======
         self.set_meta_prop(tags, uri, key)
     
@@ -255,6 +313,7 @@ class Imagecontroller(object):
         """ 
         
 <<<<<<< HEAD
+<<<<<<< HEAD
         imgfrag = ImageFragment.create(
                                 image = image,
                                 x = coordinates[0],
@@ -264,6 +323,8 @@ class Imagecontroller(object):
         imgfrag.save()
         return imgfrag
 =======
+=======
+>>>>>>> origin/#1-extend-semantic-annotation
         try:
             imgfrag = ImageFragment.get(image=image, x=coordinates[0], y=coordinates[1], visible=True)
             return imgfrag
@@ -276,6 +337,9 @@ class Imagecontroller(object):
                                     h = defaultfragsize,)
             imgfrag.save()
             return imgfrag
+<<<<<<< HEAD
+>>>>>>> origin/#1-extend-semantic-annotation
+=======
 >>>>>>> origin/#1-extend-semantic-annotation
         
     def add_metadata(self, fragment, nasp):
@@ -305,6 +369,7 @@ class Imagecontroller(object):
         """ Adds an Annotation to a Metadata Object
             of one namespace
 <<<<<<< HEAD
+<<<<<<< HEAD
         """ 
         
         imganno = Annotation.create(
@@ -314,6 +379,8 @@ class Imagecontroller(object):
         imganno.save()
         return imganno
 =======
+=======
+>>>>>>> origin/#1-extend-semantic-annotation
             if the key is already included the value
             will be updated. if the key is not there, a new annotation
             will be created
@@ -336,6 +403,9 @@ class Imagecontroller(object):
                                 an_value = value,)
             imganno.save()
             return imganno
+<<<<<<< HEAD
+>>>>>>> origin/#1-extend-semantic-annotation
+=======
 >>>>>>> origin/#1-extend-semantic-annotation
     
     def add_imageuri(self, uri, image):

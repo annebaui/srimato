@@ -4,17 +4,23 @@ from flask import request, render_template, flash, redirect, url_for
 from app import app
 from models import Image, Imageuri, ImageFragment, Metadata, Annotation
 <<<<<<< HEAD
+<<<<<<< HEAD
 import exiftool
 from imagecontroller import Imagecontroller
 
 imgc = Imagecontroller()
 ns_foaf = 'http://xmlns.com/foaf/0.1/'
 =======
+=======
+>>>>>>> origin/#1-extend-semantic-annotation
 from imagecontroller import Imagecontroller
 
 imgc = Imagecontroller()
 ns_foaf = "http://xmlns.com/foaf/0.1/"
 ns_ma = "http://www.w3.org/ns/ma-ont#"
+<<<<<<< HEAD
+>>>>>>> origin/#1-extend-semantic-annotation
+=======
 >>>>>>> origin/#1-extend-semantic-annotation
 
 @app.route('/')
@@ -61,7 +67,10 @@ def image_detail(imageid):
 @app.route('/images/<imageid>/addfragment', methods=['GET', 'POST'])
 def addfragment(imageid, *context):
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> origin/#1-extend-semantic-annotation
 
     """
         if HTTP verb is POST a new fragment is saved for a specific imageid
@@ -79,17 +88,23 @@ def addfragment(imageid, *context):
         using this trough the API --> further improvement needed!
     """
 
+<<<<<<< HEAD
+>>>>>>> origin/#1-extend-semantic-annotation
+=======
 >>>>>>> origin/#1-extend-semantic-annotation
     image = get_object_or_404(Image, id=imageid)
 
     if request.method == 'POST' and request.form['xvalue']:
         imgfrag = imgc.add_fragment(image, [request.form['xvalue'], request.form['yvalue']])
 <<<<<<< HEAD
+<<<<<<< HEAD
         if request.args.get('context', 'person'):
             fragmeta = imgc.add_metadata(imgfrag, ns_foaf)
             imgc.add_annotation(fragmeta, 'firstName', request.form['firstName'])
             imgc.add_annotation(fragmeta, 'lastName', request.form['lastName'])
 =======
+=======
+>>>>>>> origin/#1-extend-semantic-annotation
         namespace = request.args.get('namespace')
         fragmeta = imgc.add_metadata(imgfrag, namespace)
         
@@ -105,6 +120,9 @@ def addfragment(imageid, *context):
             value = request.form['value']
             imgc.add_annotation(fragmeta, annokey, value)
         
+<<<<<<< HEAD
+>>>>>>> origin/#1-extend-semantic-annotation
+=======
 >>>>>>> origin/#1-extend-semantic-annotation
         flash('Das Fragment wurde erfolgreich angelegt!')
         return redirect(url_for('image_detail', imageid=imageid))
@@ -140,7 +158,10 @@ def adduri(imageid):
 @app.route('/addimage/', methods=['GET', 'POST'])
 def addimage():
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> origin/#1-extend-semantic-annotation
 
     """
         if HTTP verb is POST the system checks, if the URI is already in the system
@@ -154,6 +175,9 @@ def addimage():
         --> Bad Request if not
     """
     
+<<<<<<< HEAD
+>>>>>>> origin/#1-extend-semantic-annotation
+=======
 >>>>>>> origin/#1-extend-semantic-annotation
     if request.method == 'POST' and request.form['imageuri']:
         try:

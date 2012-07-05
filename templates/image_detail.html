@@ -14,8 +14,13 @@
 			<h3>Fragment hinzuf&uuml;gen</h3>
 			<ul>
 <<<<<<< HEAD
+<<<<<<< HEAD
 				<li><a href="#" class="addfrag">Person</a></li>
 				<form class="inputfield" action="{{ url_for('addfragment', imageid=img.id, context='person' ) }}" method="post">
+=======
+				<li><a href="#" class="addfrag person">Person</a></li>
+				<form class="inputfield person" action="{{ url_for('addfragment', imageid=img.id, context='person', namespace='http://xmlns.com/foaf/0.1/' ) }}" method="post">
+>>>>>>> origin/#1-extend-semantic-annotation
 =======
 				<li><a href="#" class="addfrag person">Person</a></li>
 				<form class="inputfield person" action="{{ url_for('addfragment', imageid=img.id, context='person', namespace='http://xmlns.com/foaf/0.1/' ) }}" method="post">
@@ -26,6 +31,7 @@
 						<tr>
 							<td></td>
 <<<<<<< HEAD
+<<<<<<< HEAD
 							<td><input type="submit" value="Speichern"></td>
 						</tr>
 					</table>
@@ -35,6 +41,8 @@
 				<li><a href="#" class="addfrag">Media</a></li>
 				<li><a href="#" class="addfrag">Anderes</a></li>
 =======
+=======
+>>>>>>> origin/#1-extend-semantic-annotation
 							<td><input name="saveanno" type="submit" value="Speichern"></td>
 						</tr>
 					</table>
@@ -83,6 +91,9 @@
 						</tr>
 					</table>
 				</form>
+<<<<<<< HEAD
+>>>>>>> origin/#1-extend-semantic-annotation
+=======
 >>>>>>> origin/#1-extend-semantic-annotation
 			</ul>
 		</div>
@@ -190,6 +201,7 @@
 								<li>version: {{ metadata.version }}</li>
 								<li>created: {{ metadata.timestamp }}</li>
 <<<<<<< HEAD
+<<<<<<< HEAD
 								<li>namespace: {{ metadata.namespace }}</li>								
 								<li><h4>Annotationen</h4>
 									<table>
@@ -197,12 +209,17 @@
 											<col width="20%">
 											<col width="80%">
 =======
+=======
+>>>>>>> origin/#1-extend-semantic-annotation
 								<li>namespace: {{ metadata.namespace|urlize }}</li>								
 								<li><h4>Annotationen</h4>
 									<table>
 										<colgroup>
 											<col width="100px">
 											<col width="400px">
+<<<<<<< HEAD
+>>>>>>> origin/#1-extend-semantic-annotation
+=======
 >>>>>>> origin/#1-extend-semantic-annotation
 										 </colgroup>
 										<tr>
@@ -213,7 +230,11 @@
 										<tr>
 											<td>{{ annotation.an_key }}</td>
 <<<<<<< HEAD
+<<<<<<< HEAD
 											<td>{{ annotation.an_value }}</td>
+=======
+											<td>{{ annotation.an_value|urlize }}</td>
+>>>>>>> origin/#1-extend-semantic-annotation
 =======
 											<td>{{ annotation.an_value|urlize }}</td>
 >>>>>>> origin/#1-extend-semantic-annotation
@@ -238,9 +259,12 @@
 	$(document).ready(function() {
 	
 <<<<<<< HEAD
+<<<<<<< HEAD
 	   $("a.addfrag").click(function() {
 		 $(".inputfield").css("display", "block");
 =======
+=======
+>>>>>>> origin/#1-extend-semantic-annotation
 	   $("a.person").click(function() {
 		 $("form.person").css("display", "block");
 		 $("form.location").css("display", "none");
@@ -271,6 +295,9 @@
 		 $("form.location").css("display", "none");
 		 $("form.relation").css("display", "none");
 		 $("form.general").css("display", "none");
+<<<<<<< HEAD
+>>>>>>> origin/#1-extend-semantic-annotation
+=======
 >>>>>>> origin/#1-extend-semantic-annotation
 	   });
 		$("a.general").click(function() {
