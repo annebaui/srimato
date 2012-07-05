@@ -20,10 +20,10 @@ class ImageuriResource(RestResource):
     
 class ImageFragmentResource(RestResource):
     include_resources = {'image': ImageResourceID}
-	
+    
 class MetadataResource(RestResource):
     include_resources = {'imgfrag': ImageFragmentResource}
-		
+        
 class AnnotationResource(RestResource):
     include_resources = {'imgmeta': MetadataResource}
 

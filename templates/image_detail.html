@@ -13,13 +13,19 @@
 		<div class="toolbox">
 			<h3>Fragment hinzuf&uuml;gen</h3>
 			<ul>
+<<<<<<< HEAD
 				<li><a href="#" class="addfrag">Person</a></li>
 				<form class="inputfield" action="{{ url_for('addfragment', imageid=img.id, context='person' ) }}" method="post">
+=======
+				<li><a href="#" class="addfrag person">Person</a></li>
+				<form class="inputfield person" action="{{ url_for('addfragment', imageid=img.id, context='person', namespace='http://xmlns.com/foaf/0.1/' ) }}" method="post">
+>>>>>>> origin/#1-extend-semantic-annotation
 					<table>
 						{% include "includes/person_input.html" %}
 						{% include "includes/coordinates_input.html" %}
 						<tr>
 							<td></td>
+<<<<<<< HEAD
 							<td><input type="submit" value="Speichern"></td>
 						</tr>
 					</table>
@@ -28,43 +34,123 @@
 				<li><a href="#" class="addfrag">Link</a></li>
 				<li><a href="#" class="addfrag">Media</a></li>
 				<li><a href="#" class="addfrag">Anderes</a></li>
+=======
+							<td><input name="saveanno" type="submit" value="Speichern"></td>
+						</tr>
+					</table>
+				</form>
+				<li><a href="#" class="addfrag location">Ort</a></li>
+				<form class="inputfield location" action="{{ url_for('addfragment', imageid=img.id, context='location', namespace='http://www.w3.org/ns/ma-ont#' ) }}" method="post">
+					<table>
+						{% include "includes/location_input.html" %}
+						{% include "includes/coordinates_input.html" %}
+						<tr>
+							<td></td>
+							<td><input name="saveanno" type="submit" value="Speichern"></td>
+						</tr>
+					</table>
+				</form>
+				<li><a href="#" class="addfrag relation">Link</a></li>
+				<form class="inputfield relation" action="{{ url_for('addfragment', imageid=img.id, context='relation', namespace='http://www.w3.org/ns/ma-ont#' ) }}" method="post">
+					<table>
+						{% include "includes/relation_input.html" %}
+						{% include "includes/coordinates_input.html" %}
+						<tr>
+							<td></td>
+							<td><input name="saveanno" type="submit" value="Speichern"></td>
+						</tr>
+					</table>
+				</form>
+				<li><a href="#" class="addfrag media">Media</a></li>
+				<form class="inputfield media" action="{{ url_for('addfragment', imageid=img.id, context='media', namespace='http://www.w3.org/ns/ma-ont#' ) }}" method="post">
+					<table>
+						{% include "includes/relation_input.html" %}
+						{% include "includes/coordinates_input.html" %}
+						<tr>
+							<td></td>
+							<td><input name="saveanno" type="submit" value="Speichern"></td>
+						</tr>
+					</table>
+				</form>
+				<li><a href="#" class="addfrag general">Anderes</a></li>
+				<form class="inputfield general" action="{{ url_for('addfragment', imageid=img.id, context='media', namespace='' ) }}" method="post">
+					<table>
+						{% include "includes/general_input.html" %}
+						{% include "includes/coordinates_input.html" %}
+						<tr>
+							<td></td>
+							<td><input name="saveanno" type="submit" value="Speichern"></td>
+						</tr>
+					</table>
+				</form>
+>>>>>>> origin/#1-extend-semantic-annotation
 			</ul>
 		</div>
 		
 		{% for imageuri in img.imageuris %}
 			{% if loop.index<2 %}
-			<div class="imageeditor">
+			<div class="imageeditor" rel="associatedMedia">
 				<img src="{{ imageuri.uri }}" >
 			</div>
 			{% endif %}
 		{% endfor %}
 		<div class="imginfos">
-			<div class="infoelement urilist">
-				<form action="" method="post">
+			<div class="infoelement urilist" about="{{ imageuri }}">
 					<table>
 						<tr>
-							<td property="headline">Bildtitel:</td>
-							<td><input type="text" name="title" size="80"></td>
+							<form action="{{ url_for('addfragment', imageid=img.id, namespace='http://www.w3.org/ns/ma-ont#' ) }}" method="post">
+								<td name="key" class="title">Bildtitel:</td>
+								<td>
+									<input type="hidden" name="key" size="80" value="title">
+									<input type="text" name="value" size="80" value="{{ img.get_key_value(imgmeta, 'title')}}" property="headline">
+								</td>
+								{% include "includes/coordinates_input_hidden.html" %}
+								<td><input name="saveanno" type="submit" value="ok"></td>
+							</form>
 						</tr>
 						<tr>
-							<td>Autor:</td>
-							<td><input type="text" name="author" value="" size="80"></td>
+							<form action="{{ url_for('addfragment', imageid=img.id, anno={'key':'creator'}, namespace='http://www.w3.org/ns/ma-ont#' ) }}" method="post">
+								<td name="key" class="author">Autor:</td>
+								<td>
+									<input type="hidden" name="key" size="80" value="creator">
+									<input type="text" name="value" size="80" value="{{ img.get_key_value(imgmeta, 'creator')}}" rel="copyrightHolder">
+								</td>
+								{% include "includes/coordinates_input_hidden.html" %}
+								<td><input type="submit" value="ok"></td>
+							</form>
 						</tr>
 						<tr>
-							<td property="copyrightNotice">Lizenz:</td>
-							<td><input type="text" name="licence" value="" size="80"></td>
+							<form action="{{ url_for('addfragment', imageid=img.id, anno={'key':'policy'}, namespace='http://www.w3.org/ns/ma-ont#' ) }}" method="post">
+								<td property="copyrightNotice">Lizenz:</td>
+								<td>
+									<input type="hidden" name="key" size="80" value="policy">
+									<input type="text" name="value" size="80" value="{{ img.get_key_value(imgmeta, 'policy')}}">
+								</td>
+								{% include "includes/coordinates_input_hidden.html" %}
+								<td><input type="submit" value="ok"></td>
+							</form>
 						</tr>
 						<tr>
-							<td property="dateCreated">Aufnahmedatum:</td>
-							<td><input type="text" name="creationdate" value="" size="80"></td>
+							<form action="{{ url_for('addfragment', imageid=img.id, anno={'key':'date'}, namespace='http://www.w3.org/ns/ma-ont#' ) }}" method="post">
+								<td property="dateCreated">Aufnahmedatum:</td>
+								<td>
+									<input type="hidden" name="key" size="80" value="date">
+									<input type="text" name="value" size="80" value="{{ img.get_key_value(imgmeta, 'date')}}">
+								</td>
+								{% include "includes/coordinates_input_hidden.html" %}
+								<td><input type="submit" value="ok"></td>
+							</form>
 						</tr>
 						<tr>
-							<td property="description">Bildbeschreibung:</td>
-							<td><textarea type="text" name="description" cols="60" rows="5" value=""></textarea></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td><input type="submit" value="ok"></td>
+							<form action="{{ url_for('addfragment', imageid=img.id, anno={'key':'description'}, namespace='http://www.w3.org/ns/ma-ont#' ) }}" method="post">
+								<td property="description">Bildbeschreibung:</td>
+								<td>
+									<input type="hidden" name="key" size="80" value="description">
+									<textarea type="text" name="value" cols="60" rows="5" property="description">{{ img.get_key_value(imgmeta, 'description')}}</textarea>
+								</td>
+								{% include "includes/coordinates_input_hidden.html" %}
+								<td><input type="submit" value="ok"></td>
+							</form>
 						</tr>
 					</table>
 				</form>
@@ -75,7 +161,7 @@
 				{% for imageuri in img.imageuris %}
 					{% if loop.index>2 %}
 						<ul class="uris">
-							<li>{{ imageuri.uri }}<!--<img src="{{ imageuri.uri }}" style="width:90px; height: 90px;">--></li>
+							<li>{{ imageuri.uri }}</li>
 						</ul>
 					{% endif %}
 					{% endfor %}
@@ -89,6 +175,7 @@
 					</form>
 				</div>				
 			</div>
+			
 			<div class="infoelement fraglist">
 				<h2>FRAGMENTS - Fragmente des Bildes</h2>
 				{% for imagefragment in img.imagefrag if imagefragment.visible %}
@@ -102,12 +189,21 @@
 							<ul>
 								<li>version: {{ metadata.version }}</li>
 								<li>created: {{ metadata.timestamp }}</li>
+<<<<<<< HEAD
 								<li>namespace: {{ metadata.namespace }}</li>								
 								<li><h4>Annotationen</h4>
 									<table>
 										<colgroup>
 											<col width="20%">
 											<col width="80%">
+=======
+								<li>namespace: {{ metadata.namespace|urlize }}</li>								
+								<li><h4>Annotationen</h4>
+									<table>
+										<colgroup>
+											<col width="100px">
+											<col width="400px">
+>>>>>>> origin/#1-extend-semantic-annotation
 										 </colgroup>
 										<tr>
 											<th>Key</th>
@@ -116,7 +212,11 @@
 										{% for annotation in metadata.anno %}
 										<tr>
 											<td>{{ annotation.an_key }}</td>
+<<<<<<< HEAD
 											<td>{{ annotation.an_value }}</td>
+=======
+											<td>{{ annotation.an_value|urlize }}</td>
+>>>>>>> origin/#1-extend-semantic-annotation
 										</tr>
 										{% endfor %}
 									</table>
@@ -137,9 +237,50 @@
 <script>
 	$(document).ready(function() {
 	
+<<<<<<< HEAD
 	   $("a.addfrag").click(function() {
 		 $(".inputfield").css("display", "block");
+=======
+	   $("a.person").click(function() {
+		 $("form.person").css("display", "block");
+		 $("form.location").css("display", "none");
+		 $("form.relation").css("display", "none");
+		 $("form.media").css("display", "none");
+		 $("form.general").css("display", "none");
 	   });
+	   
+	   $("a.location").click(function() {
+		 $("form.location").css("display", "block");
+		 $("form.person").css("display", "none");
+		 $("form.relation").css("display", "none");
+		 $("form.media").css("display", "none");
+		 $("form.general").css("display", "none");
+	   });
+	   
+	   $("a.relation").click(function() {
+		 $("form.relation").css("display", "block");
+		 $("form.person").css("display", "none");
+		 $("form.location").css("display", "none");
+		 $("form.media").css("display", "none");
+		 $("form.general").css("display", "none");
+	   });
+	   
+	   $("a.media").click(function() {
+		 $("form.media").css("display", "block");
+		 $("form.person").css("display", "none");
+		 $("form.location").css("display", "none");
+		 $("form.relation").css("display", "none");
+		 $("form.general").css("display", "none");
+>>>>>>> origin/#1-extend-semantic-annotation
+	   });
+		$("a.general").click(function() {
+		 $("form.general").css("display", "block");
+		 $("form.person").css("display", "none");
+		 $("form.location").css("display", "none");
+		 $("form.relation").css("display", "none");
+		 $("form.media").css("display", "none");
+	   });	   
 	 });
+	 
 </script>
 {% endblock %}
