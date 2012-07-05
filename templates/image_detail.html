@@ -14,22 +14,21 @@
 			<h3>Fragment hinzuf&uuml;gen</h3>
 			<ul>
 				<li><a href="#" class="addfrag">Person</a></li>
+				<form class="inputfield" action="{{ url_for('addfragment', imageid=img.id, context='person' ) }}" method="post">
+					<table>
+						{% include "includes/person_input.html" %}
+						{% include "includes/coordinates_input.html" %}
+						<tr>
+							<td></td>
+							<td><input type="submit" value="Speichern"></td>
+						</tr>
+					</table>
+				</form>
 				<li><a href="#" class="addfrag">Ort</a></li>
 				<li><a href="#" class="addfrag">Link</a></li>
 				<li><a href="#" class="addfrag">Media</a></li>
 				<li><a href="#" class="addfrag">Anderes</a></li>
 			</ul>
-			<form id="addfrag" action="{{ url_for('addfragment', imageid=img.id) }}" method="post">
-				<ul>
-					<li>
-						X: <input type="text" name="xvalue">
-					</li>
-					<li>
-						Y: <input type="text" name="yvalue">
-					</li>
-					<div class=actions><input type="submit" value="Speichern"></div>
-				</ul>
-			</form>
 		</div>
 		
 		{% for imageuri in img.imageuris %}
@@ -102,25 +101,27 @@
 							<h4>Metadaten</h4>
 							<ul>
 								<li>version: {{ metadata.version }}</li>
-								<li>namespace: {{ metadata.namespace }}</li>
 								<li>created: {{ metadata.timestamp }}</li>
-								{% for annotation in metadata.anno %}
-								<h4>Annotationen</h4>
-								<ul>
-									<li>{{ annotation.an_key }}: {{ annotation.an_value }}</li>
-								</ul>
-								{% endfor %}
+								<li>namespace: {{ metadata.namespace }}</li>								
+								<li><h4>Annotationen</h4>
+									<table>
+										<colgroup>
+											<col width="20%">
+											<col width="80%">
+										 </colgroup>
+										<tr>
+											<th>Key</th>
+											<th>Value</th>
+										</tr>
+										{% for annotation in metadata.anno %}
+										<tr>
+											<td>{{ annotation.an_key }}</td>
+											<td>{{ annotation.an_value }}</td>
+										</tr>
+										{% endfor %}
+									</table>
 							</ul>
 							{% endfor %}
-							<p>Metadaten hinzuf&uuml;gen</p>
-							{#<form action="#{{ url_for('addmeta', imageid=img.id) }}#" method="post">#}
-							<form action="" method="post">
-								<ul>
-									<li>
-										+ <input type="text" name="imguri"><input type="submit" value="ok">
-									</li>
-								</ul>
-							</form>
 						</ul>
 					</div>
 				{% endfor %}
@@ -137,7 +138,7 @@
 	$(document).ready(function() {
 	
 	   $("a.addfrag").click(function() {
-		 $("form#addfrag").css("display", "block");
+		 $(".inputfield").css("display", "block");
 	   });
 	 });
 </script>

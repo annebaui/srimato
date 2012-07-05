@@ -2,6 +2,8 @@
 
 
 a semantic region-based image annotation tool that 
+this application is part of my bachelor thesis - research topics can be found here:
+<http://research.anne-bauermeister.de>
 
 main functions:
 
