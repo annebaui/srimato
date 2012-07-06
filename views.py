@@ -28,7 +28,7 @@ def image_timeline():
     """
     images = Image.select().order_by(('id', 'asc'))
     return object_list('images.html', images, 'image_list')
-    
+   
 @app.route('/images/<imageid>/')
 def image_detail(imageid):
 
@@ -80,9 +80,11 @@ def addfragment(imageid, *context):
             imgc.add_annotation(fragmeta, 'name', request.form['name'])
             imgc.add_annotation(fragmeta, 'homepage', request.form['homepage'])
         elif request.args.get('context') == "location":
-            imgc.add_annotation(fragmeta, 'locationName', request.form['locationName'])
+            imgc.add_annotation(fragmeta, 'locationLabel', request.form['locationLabel'])
+            imgc.add_annotation(fragmeta, 'locationLink', request.form['locationLink'])
         elif (request.args.get('context') == "relation") or (request.args.get('context') == "media"):
-            imgc.add_annotation(fragmeta, 'relation', request.form['relation'])
+            imgc.add_annotation(fragmeta, 'targetLabel', request.form['targetLabel'])
+            imgc.add_annotation(fragmeta, 'targetLink', request.form['targetLink'])
         else:
             annokey = request.form['key']
             value = request.form['value']
@@ -141,8 +143,10 @@ def addimage():
             flash('Dieses Bild ist bereits im System gespeichert. Bitte waehle eine andere URI.', 'error')
             return redirect(url_for('image_detail', imageid=imageob.id))
         except Imageuri.DoesNotExist:
-            if imgc.check_image_size(request.form['imageuri']) == True:
-                imageob = imgc.create_new_image(request.form['imageuri'])                
+            imgsize = imgc.get_image_size(request.form['imageuri'])
+            imgc.check_image_size(imgsize)
+            if imgc.check_image_size(imgsize):
+                imageob = imgc.create_new_image(request.form['imageuri'], imgsize)                
                 flash('Dein Bild wurde erfolgreich ans System uebertragen. Starte nun mit deinen Annotationen.')
                 return redirect(url_for('image_detail', imageid=imageob.id))
             else:

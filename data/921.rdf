@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+  xmlns:foaf="http://xmlns.com/foaf/0.1/"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:ma="http://www.w3.org/ns/ma-ont#"
+>
+  <rdf:Description rdf:about="http://www.anne-bauermeister.de/srimatopics/ikea_sofa.jpg">
+    <ma:Fragment>
+      <rdf:Description rdf:about="http://127.0.0.1:5000/api/imagefragment/2/">
+        <ma:propertyName>fragment</ma:propertyName>
+        <ma:identifier>http://www.anne-bauermeister.de/srimatopics/ikea_sofa.jpg#xywh:pixel=0,0,10,10</ma:identifier>
+        <foaf:depicts rdf:resource="http://127.0.0.1:5000/api/annotation/5/"/>
+		<foaf:depicts rdf:resource="http://127.0.0.1:5000/api/annotation/6/"/>
+		<foaf:depicts rdf:resource="http://127.0.0.1:5000/api/annotation/7/"/>
+		<foaf:depicts rdf:resource="http://127.0.0.1:5000/api/annotation/8/"/>
+		<foaf:depicts rdf:resource="http://127.0.0.1:5000/api/annotation/19/"/>
+      </rdf:Description>
+    </ma:Fragment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://127.0.0.1:5000/api/annotation/5/">
+	<ma:identifier>http://www.anne-bauermeister.de/srimatopics/feierliche_exma.jpg</ma:identifier>
+    <foaf:Person rdf:resource="Anne Bauermeister"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://127.0.0.1:5000/api/annotation/6/">
+	<ma:title>Feierliche Exmatrikulation</ma:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://127.0.0.1:5000/api/annotation/7/">
+	<ma:description>Gruppenbild der Absolventen im WS 11/12 im Wernigeröder Rathaus</ma:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://127.0.0.1:5000/api/annotation/8/">
+	<ma:date>2012:07:04 09:54:08.12</ma:date>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://127.0.0.1:5000/api/annotation/19/">
+	<foaf:Person rdf:resource="Laura Krause"/>
+		<foaf:name>Laura Krause</foaf:name>
+		<foaf:homepage>http://www.example.de</foaf:homepage>
+	</foaf:Person>
+  </rdf:Description>
+</rdf:RDF>

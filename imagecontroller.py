@@ -3,7 +3,9 @@ import exiftool
 import urllib2 as urllib
 from PIL import Image as PILImage
 import StringIO
+import tempfile
 from models import Image, Imageuri, ImageFragment, Metadata, Annotation
+from datacontroller import DataController 
 
 tempimgname = 'tempimg.jpg'
 maximagesize = 680
@@ -12,12 +14,19 @@ gl_image = None
 tempfrag = None
 tempmeta = None
 
+
+"""
+    the imagecontroller handles all
+    functions on the image like the extraction of metadata,
+    the creation of a new image object
+"""
+
 # namespace for W3C Ontology for Media Resources
 ns_ma = "http://www.w3.org/ns/ma-ont#"
 
 class Imagecontroller(object):
 
-    def create_new_image(self, imguri):
+    def create_new_image(self, imguri, imgsize):
         global gl_image
         
         """ Creates a new image instance and queries
@@ -25,7 +34,7 @@ class Imagecontroller(object):
             resulting in new fragments, metadata and annotations
         """ 
         
-        imageob = Image.create(width=self.get_image_size(imguri)[0], height=self.get_image_size(imguri)[1],)
+        imageob = Image.create(width=imgsize[0], height=imgsize[1],)
         imageob.save()
         imageuri = Imageuri.create(
             image=imageob,
@@ -50,6 +59,8 @@ class Imagecontroller(object):
             displayed by the W3C Ontology for Media Resources 
         """ 
         
+        self.create_temp_img_from_uri(uri)
+        
         tempfrag = self.add_fragment(gl_image, [0,0])
         tempmeta = self.add_metadata(tempfrag, ns_ma)
         
@@ -61,7 +72,7 @@ class Imagecontroller(object):
         self.set_img_copyright(uri)
         self.set_img_location(uri)
         self.set_img_policy(uri)
-        self.set_img_relation(uri)
+        self.set_img_relation(uri)     
         
     def set_img_locator(self, uri):       
     
@@ -174,7 +185,6 @@ class Imagecontroller(object):
     
         global tempmeta
         
-        self.create_temp_img_from_uri(uri)
         with exiftool.ExifTool() as et:
             for tag in tags:
                 if et.get_tag(tag, tempimgname) != None:     
@@ -248,6 +258,15 @@ class Imagecontroller(object):
                                 an_value = value,)
             imganno.save()
             return imganno
+            
+    def get_fragments(self, image):
+        return ImageFragment.select().where(image=image)
+        
+    def get_metadata(self, imgfrag):
+        return Metadata.select().where(imgfrag=imgfrag)
+        
+    def get_annotation(self, imgmeta):
+        return Annotation.select().where(imgmeta=imgmeta)
     
     def add_imageuri(self, uri, image):
         
@@ -279,6 +298,11 @@ class Imagecontroller(object):
         
         """ 
             Create a stream of an image file to work with
+            url has to be opened again because the
+            req.read() from get_img_size crashes data so that
+            it cant be streamed
+            ***TODO***
+            - File should be created by tempfile.py
         """
         
         fp = open(tempimgname, 'wb')
@@ -286,18 +310,21 @@ class Imagecontroller(object):
         for line in req:
             fp.write(line)
         fp.close()
+      
         
     def get_image_size(self, uri):
     
-        """ 
-            Gets a current size of an image.
+        global req
+    
+        """
+            Return the current size of an image.
         """
             
-        fp = urllib.urlopen(uri)
-        im = PILImage.open(StringIO.StringIO(fp.read()))
+        req = urllib.urlopen(uri)
+        im = PILImage.open(StringIO.StringIO(req.read()))
         return im.size
         
-    def check_image_size(self, uri):
+    def check_image_size(self, imgsize):
         
         """ 
             Checks the image size. In the GUI, image
@@ -305,10 +332,7 @@ class Imagecontroller(object):
             width < 680px . otherwise the image is being
             rejected.
         """
-    
-        fp = urllib.urlopen(uri)
-        im = PILImage.open(StringIO.StringIO(fp.read()))
-        if im.size[0]<=maximagesize:
+        if imgsize[0]<=maximagesize:
             return True
         else:
             return False

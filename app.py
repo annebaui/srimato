@@ -1,12 +1,11 @@
 from flask import Flask
 
-# flask-peewee bindings
 from flask_peewee.db import Database
 
 app = Flask(__name__)
 app.config.from_object('config.Configuration')
 
-# instantiate the db wrapper - connects to the database on each request and close it when finished
+# instantiate db wrapper - handles connection to the database on each request and close it when finished
 db = Database(app)
 
 def create_tables():
