@@ -58,7 +58,7 @@
 					</table>
 				</form>
 				<li><a href="#" class="addfrag general">Anderes</a></li>
-				<form class="inputfield general" action="{{ url_for('addfragment', imageid=img.id, context='media', namespace='' ) }}" method="post">
+				<form class="inputfield general" action="{{ url_for('addfragment', imageid=img.id, context='general', namespace='http://www.w3.org/ns/ma-ont#' ) }}" method="post">
 					<table>
 						{% include "includes/general_input.html" %}
 						{% include "includes/coordinates_input.html" %}
