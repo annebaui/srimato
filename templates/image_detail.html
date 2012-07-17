@@ -5,88 +5,60 @@
 		<div class="imageheadline">
 			<h1>Infos zu Bild Nr. {{ img.id }}</h1>
 			<div class="alignright">
-				<a href="">JSON</a>
-				<a href="">RDF/XML</a>
-				<a href="">JPEG</a>
+				<a href="" title="Noch nicht implementiert">JSON</a>
+				<a href="" title="Noch nicht implementiert">RDF/XML</a>
+				<a href="" title="Noch nicht implementiert">JPEG</a>
 			</div>
 		</div>
 		<div class="toolbox">
 			<h3>Fragment hinzuf&uuml;gen</h3>
 			<ul>
 				<li><a href="#" class="addfrag person">Person</a></li>
-				<form class="inputfield person" action="{{ url_for('addfragment', imageid=img.id, context='person', namespace='http://xmlns.com/foaf/0.1/' ) }}" method="post">
-					<table>
-						{% include "includes/person_input.html" %}
-						{% include "includes/coordinates_input.html" %}
-						<tr>
-							<td></td>
-							<td><input name="saveanno" type="submit" value="Speichern"></td>
-						</tr>
-					</table>
-				</form>
 				<li><a href="#" class="addfrag location">Ort</a></li>
-				<form class="inputfield location" action="{{ url_for('addfragment', imageid=img.id, context='location', namespace='http://www.w3.org/ns/ma-ont#' ) }}" method="post">
-					<table>
-						{% include "includes/location_input.html" %}
-						{% include "includes/coordinates_input.html" %}
-						<tr>
-							<td></td>
-							<td><input name="saveanno" type="submit" value="Speichern"></td>
-						</tr>
-					</table>
-				</form>
 				<li><a href="#" class="addfrag relation">Link</a></li>
-				<form class="inputfield relation" action="{{ url_for('addfragment', imageid=img.id, context='relation', namespace='http://www.w3.org/ns/ma-ont#' ) }}" method="post">
-					<table>
-						{% include "includes/relation_input.html" %}
-						{% include "includes/coordinates_input.html" %}
-						<tr>
-							<td></td>
-							<td><input name="saveanno" type="submit" value="Speichern"></td>
-						</tr>
-					</table>
-				</form>
 				<li><a href="#" class="addfrag media">Media</a></li>
-				<form class="inputfield media" action="{{ url_for('addfragment', imageid=img.id, context='media', namespace='http://www.w3.org/ns/ma-ont#' ) }}" method="post">
-					<table>
-						{% include "includes/relation_input.html" %}
-						{% include "includes/coordinates_input.html" %}
-						<tr>
-							<td></td>
-							<td><input name="saveanno" type="submit" value="Speichern"></td>
-						</tr>
-					</table>
-				</form>
 				<li><a href="#" class="addfrag general">Anderes</a></li>
-				<form class="inputfield general" action="{{ url_for('addfragment', imageid=img.id, context='general', namespace='http://www.w3.org/ns/ma-ont#' ) }}" method="post">
-					<table>
-						{% include "includes/general_input.html" %}
-						{% include "includes/coordinates_input.html" %}
-						<tr>
-							<td></td>
-							<td><input name="saveanno" type="submit" value="Speichern"></td>
-						</tr>
-					</table>
-				</form>
 			</ul>
 		</div>
 		
 		{% for imageuri in img.imageuris %}
 			{% if loop.index<2 %}
-			<div class="imageeditor" rel="associatedMedia">
-				<img src="{{ imageuri.uri }}" >
+			<h2 id="coordinates"></h2>
+			<div class="imageeditor" vocab="http://schema.org/" typeof="ImageObject">
+				<img src="{{ imageuri.uri }}" property="url">
+				<div class="srimatodots-wrapper">
+					{% for imagefragment in img.imagefrag if imagefragment.visible %}
+						{% if imagefragment.x != 0 and imagefragment.y !=0 %}
+							<div class="srimatodot-wrapper" style="left: {{ imagefragment.x }}px; top: {{ imagefragment.y }}px;">
+								<div class="srimatodot"></div>
+								{% for metadata in imagefragment.fragmeta %}
+									<ul class="srimatodot-info">
+										{% for annotation in metadata.anno %}
+											<li>{{ annotation.an_key }}: {{ annotation.an_value|urlize }}</li>
+										{% endfor %}
+									</ul>
+								{% endfor %}
+							</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+				{% include "includes/form_person.html" %}
+				{% include "includes/form_location.html" %}
+				{% include "includes/form_relation.html" %}
+				{% include "includes/form_media.html" %}
+				{% include "includes/form_general.html" %}
 			</div>
 			{% endif %}
 		{% endfor %}
 		<div class="imginfos">
-			<div class="infoelement urilist" about="{{ imageuri }}">
+			<div class="infoelement urilist" about="{{ imageuri }}" vocab="http://schema.org/" typeof="ImageObject">
 					<table>
 						<tr>
 							<form action="{{ url_for('addfragment', imageid=img.id, namespace='http://www.w3.org/ns/ma-ont#' ) }}" method="post">
 								<td name="key" class="title">Bildtitel:</td>
 								<td>
 									<input type="hidden" name="key" size="80" value="title">
-									<input type="text" name="value" size="80" value="{{ img.get_key_value(imgmeta, 'title')}}" property="headline">
+									<input type="text" name="value" size="80" value="{{ img.get_key_value(imgmeta, 'title')}}" property="name">
 								</td>
 								{% include "includes/coordinates_input_hidden.html" %}
 								<td><input name="saveanno" type="submit" value="ok"></td>
@@ -94,10 +66,10 @@
 						</tr>
 						<tr>
 							<form action="{{ url_for('addfragment', imageid=img.id, anno={'key':'creator'}, namespace='http://www.w3.org/ns/ma-ont#' ) }}" method="post">
-								<td name="key" class="author">Autor:</td>
+								<td name="key">Autor:</td>
 								<td>
 									<input type="hidden" name="key" size="80" value="creator">
-									<input type="text" name="value" size="80" value="{{ img.get_key_value(imgmeta, 'creator')}}" rel="copyrightHolder">
+									<input type="text" name="value" size="80" value="{{ img.get_key_value(imgmeta, 'creator')}}" property="author">
 								</td>
 								{% include "includes/coordinates_input_hidden.html" %}
 								<td><input type="submit" value="ok"></td>
@@ -105,7 +77,7 @@
 						</tr>
 						<tr>
 							<form action="{{ url_for('addfragment', imageid=img.id, anno={'key':'policy'}, namespace='http://www.w3.org/ns/ma-ont#' ) }}" method="post">
-								<td property="copyrightNotice">Lizenz:</td>
+								<td>Lizenz:</td>
 								<td>
 									<input type="hidden" name="key" size="80" value="policy">
 									<input type="text" name="value" size="80" value="{{ img.get_key_value(imgmeta, 'policy')}}">
@@ -116,10 +88,10 @@
 						</tr>
 						<tr>
 							<form action="{{ url_for('addfragment', imageid=img.id, anno={'key':'date'}, namespace='http://www.w3.org/ns/ma-ont#' ) }}" method="post">
-								<td property="dateCreated">Aufnahmedatum:</td>
+								<td>Aufnahmedatum:</td>
 								<td>
 									<input type="hidden" name="key" size="80" value="date">
-									<input type="text" name="value" size="80" value="{{ img.get_key_value(imgmeta, 'date')}}">
+									<input type="text" name="value" size="80" value="{{ img.get_key_value(imgmeta, 'date')}}" property="dateCreated">
 								</td>
 								{% include "includes/coordinates_input_hidden.html" %}
 								<td><input type="submit" value="ok"></td>
@@ -127,7 +99,7 @@
 						</tr>
 						<tr>
 							<form action="{{ url_for('addfragment', imageid=img.id, anno={'key':'description'}, namespace='http://www.w3.org/ns/ma-ont#' ) }}" method="post">
-								<td property="description">Bildbeschreibung:</td>
+								<td>Bildbeschreibung:</td>
 								<td>
 									<input type="hidden" name="key" size="80" value="description">
 									<textarea type="text" name="value" cols="60" rows="5" property="description">{{ img.get_key_value(imgmeta, 'description')}}</textarea>
@@ -201,51 +173,88 @@
 	{% endblock %}
 	</div>
 	<div class=footer>
-		Srimato &mdash; A Flask Application
+		Srimato &mdash; A Flask Application &mdash; &copy; <a href="http://anne-bauermeister.de" target="_blank">Anne Bauermeister</a>
 	</div>
 {% endblock %}
 {% block scripts %}
 <script>
 	$(document).ready(function() {
-	
-	   $("a.person").click(function() {
-		 $("form.person").css("display", "block");
-		 $("form.location").css("display", "none");
-		 $("form.relation").css("display", "none");
-		 $("form.media").css("display", "none");
-		 $("form.general").css("display", "none");
-	   });
-	   
-	   $("a.location").click(function() {
-		 $("form.location").css("display", "block");
-		 $("form.person").css("display", "none");
-		 $("form.relation").css("display", "none");
-		 $("form.media").css("display", "none");
-		 $("form.general").css("display", "none");
-	   });
-	   
-	   $("a.relation").click(function() {
-		 $("form.relation").css("display", "block");
-		 $("form.person").css("display", "none");
-		 $("form.location").css("display", "none");
-		 $("form.media").css("display", "none");
-		 $("form.general").css("display", "none");
-	   });
-	   
-	   $("a.media").click(function() {
-		 $("form.media").css("display", "block");
-		 $("form.person").css("display", "none");
-		 $("form.location").css("display", "none");
-		 $("form.relation").css("display", "none");
-		 $("form.general").css("display", "none");
-	   });
+		
+		/* 
+			Enable adding fragments to the image 
+		*/
+		function enableFrags(event) {
+		
+			/* Calculate coordinates from click event ( substracted by the half of the dot size to be centered)	*/
+			var mleft = event.pageX - this.offsetLeft - 10;
+			var mtop = event.pageY - this.offsetTop - 10;
+			
+			/* Place a new dot on the coordinates	*/
+			$("div.srimatodots-wrapper").append(
+					"<div class='srimatodot-wrapper' style='left:" + mleft +  "px; top:" + mtop + "px;'><div class='srimatodot'></div></div>"
+				);
+			
+			/* Display right form */
+			var cssForm = {
+				'display' : 'block',
+				'left' : mleft + 30,
+				'top' : mtop
+			}
+			if(event.data.frag == "person"){
+				$("form.person").css(cssForm);
+				$("form.location, form.relation, form.media, form.general").css("display", "none");
+			} else if(event.data.frag == "location"){
+				$("form.location").css(cssForm);
+				$("form.person, form.relation, form.media, form.general").css("display", "none");
+			} else if(event.data.frag == "relation"){
+				$("form.relation").css(cssForm);
+				$("form.person, form.location, form.media, form.general").css("display", "none");
+			} else if(event.data.frag == "media"){
+				$("form.media").css(cssForm);
+				$("form.person, form.location, form.relation, form.general").css("display", "none");
+			} else if(event.data.frag == "general"){
+				$("form.general").css(cssForm);
+				$("form.person, form.location. form.relation, form.media").css("display", "none");
+			}
+			
+			/* Fill form with selected coordinates */
+			$('input[name="xvalue"]').val(mleft);
+			$('input[name="yvalue"]').val(mtop);
+			
+			/* After click, set the cursor back to default state and disable adding new fragements  */
+			$("div.imageeditor").css("cursor", "default");
+			$("div.imageeditor").off("click", enableFrags);
+		}
+		
+		/* After user selected a fragment type, hovering the picture ends up in a crosshair cursor to add a fragement  */
+		$("a.addfrag").click(function() {
+			$("div.imageeditor").css("cursor", "crosshair");
+		});
+		
+		/* After user selected coordiantes, the right form is popping up to enter text  */
+		$("a.person").click(function() {
+			$("div.imageeditor").on("click", {frag: "person"}, enableFrags);
+		});
+		
+		$("a.location").click(function() {
+			$("div.imageeditor").on("click", {frag: "location"}, enableFrags);
+		});
+		
+		$("a.relation").click(function() {
+			$("div.imageeditor").on("click", {frag: "relation"}, enableFrags);
+		});
+		
+		$("a.media").click(function() {
+			$("div.imageeditor").on("click", {frag: "media"}, enableFrags);
+		});
+		
 		$("a.general").click(function() {
-		 $("form.general").css("display", "block");
-		 $("form.person").css("display", "none");
-		 $("form.location").css("display", "none");
-		 $("form.relation").css("display", "none");
-		 $("form.media").css("display", "none");
-	   });	   
+			$("div.imageeditor").on("click", {frag: "general"}, enableFrags);
+		});	 
+
+		$("div.srimatodot-wrapper").hover(function() {
+			$(this).find(".srimatodot-info").toggle();
+		});
 	 });
 	 
 </script>

@@ -1,0 +1,10 @@
+<form class="inputfield person" action="{{ url_for('addfragment', imageid=img.id, context='person', namespace='http://xmlns.com/foaf/0.1/' ) }}" method="post">
+	<table>
+		{% include "includes/person_input.html" %}
+		{% include "includes/coordinates_input.html" %}
+		<tr>
+			<td></td>
+			<td><input name="saveanno" type="submit" value="Speichern"></td>
+		</tr>
+	</table>
+</form>

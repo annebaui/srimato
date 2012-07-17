@@ -1,14 +1,23 @@
+/* basic settings */
+
 *{margin:0;padding:0;}
 p.small{font-size: 12px;}
 .clear{clear: left;}
 h1{color: #4C5154; font-size: 15px;}
 h2{color: #4C5154; font-size: 14px;}
 
+a { color: #26776F;}
+a:hover { color: #333; }
+
 body {
     background: black;
     font-family: 'Arial', sans-serif;
     font-size: 12px;
 	line-height: 1.6em;
+}
+
+div.body{
+	background: white;
 }
 
 div.apptitle{
@@ -30,18 +39,49 @@ div.apptitle h1 a{
 	text-decoration:none;
 }
 
+div.page {
+    width: 700px;
+    margin: 20px auto;
+}
+
+div.alignright{
+	text-align: right;
+	display: inline-block;
+	width: 50%;
+}
+
+div.page div.body {
+    padding: 10px;
+}
+
+div.page div.footer {
+    background: #eee;
+    color: #888;
+    padding: 5px 10px;
+    font-size: 12px;
+	margin-top: 10px;
+}
+
+/* toolbox of editor */
+
 .inputfield{
 	position: absolute;
 	display: none;
-}
-
-form.inputfield{
-	margin: 55px 0;
+	background-color: #EEF2F5;
 }
 
 div.toolbox form {
 	background-color: #EEF2F5;
 }
+
+/* srimato dots */
+.srimatodot{z-index:998; background: url(images/srimato_dot.png); background-repeat: none; width: 20px; height: 20px; display: block;}
+.srimatodot-wrapper{display: block; position: absolute;}
+.srimatodot-info{position: relative; margin-left: 30px; margin-top: -20px; clear: both; z-index:999;display: none; padding: 5px; list-style-type: none; background-color: #4C5154; color: white;}
+.srimatodot-info a {color: white; text-decoration: none;}
+.srimatodot-info a:hover {color: white; text-decoration: underline;}
+
+/* flashes */
 
 div.flash{
 	margin: 10px 0;
@@ -52,14 +92,6 @@ ul.flashes{
 	list-style-type: none;
 }
 
-div.page {
-    width: 700px;
-    margin: 20px auto;
-}
-
-div.body{
-	background: white;
-}
 
 ul.flashes {
     list-style: none;
@@ -87,6 +119,8 @@ ul.flashes li.error {
 	color: white;
 }
 
+/* navigation */
+
 div.page div.navigation a , div.toolbox a{
     color: #4C5154;
     font-weight: bold;
@@ -113,6 +147,20 @@ div.navigation ul li, div.toolbox ul li{
 	display: block;
 }
 
+/* editor */
+div.imageeditor {position: relative;}
+
+div.imageeditor{
+	clear: both;
+	background-color: #EEF2F5;
+}
+
+div.imageeditor img{
+	margin: 20px auto;
+	text-align: center;
+	display: block;
+}
+
 div.page div.navigation {
     background: black;
     padding: 10px 0;
@@ -135,12 +183,6 @@ div.imageheadline h1{
 	float: left;
 }
 
-div.alignright{
-	text-align: right;
-	display: inline-block;
-	width: 50%;
-}
-
 div.toolbox{
 	clear: left;
 	margin: 10px 0 20px 0;
@@ -153,17 +195,7 @@ div.imageheadline a{
 	text-decoration: none;
 }
 
-div.imageeditor{
-	clear: both;
-	background-color: #EEF2F5;
-}
-
-div.imageeditor img{
-	margin: 20px auto;
-	text-align: center;
-	display: block;
-}
-
+/* fragments table */
 div.fragment ul{
 	margin-left: 30px;
 }
@@ -199,87 +231,4 @@ div.fragment{
 
 table.images{
 	text-align: center;
-}
-
-/*________________________*/
-
-a {
-    color: #26776F;
-}
-
-a:hover {
-    color: #333;
-}
-
-div.page div.body {
-    padding: 10px;
-}
-
-div.page div.footer {
-    background: #eee;
-    color: #888;
-    padding: 5px 10px;
-    font-size: 12px;
-}
-
-div.page div.followstatus {
-    border: 1px solid #ccc;
-    background: #E3EBEA;
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-    padding: 3px;
-    font-size: 13px;
-}
-
-div.page ul.messages {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-div.page ul.messages li {
-    margin: 10px 0;
-    padding: 5px;
-    background: #F0FAF9;
-    border: 1px solid #DBF3F1;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    min-height: 48px;
-}
-
-div.page ul.messages p {
-    margin: 0;
-}
-
-div.page ul.messages li img {
-    float: left;
-    padding: 0 10px 0 0;
-}
-
-div.page ul.messages li small {
-    font-size: 0.9em;
-    color: #888;
-}
-
-div.page div.twitbox {
-    margin: 10px 0;
-    padding: 5px;
-    background: #F0FAF9;
-    border: 1px solid #94E2DA;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-}
-
-div.page div.twitbox h3 {
-    margin: 0;
-    font-size: 1em;
-    color: #2C7E76;
-}
-
-div.page div.twitbox p {
-    margin: 0;
-}
-
-div.page div.twitbox input[type="text"] {
-    width: 585px;
 }

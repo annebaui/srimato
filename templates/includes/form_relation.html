@@ -1,0 +1,10 @@
+<form class="inputfield relation" action="{{ url_for('addfragment', imageid=img.id, context='relation', namespace='http://www.w3.org/ns/ma-ont#' ) }}" method="post">
+	<table>
+		{% include "includes/relation_input.html" %}
+		{% include "includes/coordinates_input.html" %}
+		<tr>
+			<td></td>
+			<td><input name="saveanno" type="submit" value="Speichern"></td>
+		</tr>
+	</table>
+</form>
